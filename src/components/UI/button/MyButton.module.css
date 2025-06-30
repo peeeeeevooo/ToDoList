@@ -1,0 +1,16 @@
+.myBtn{
+    padding: 10px;
+    margin: 20px;
+    border: 3px solid  #e62100;
+    border-radius: 15px;
+    background: #e62100;
+    color: white;
+    transition: all 0.5s ease;
+}
+
+.myBtn:hover{
+    background: #45a049;
+    cursor: pointer;
+    transform: scale(1.2);
+    border: 3px solid  #45a049;
+}
