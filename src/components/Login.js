@@ -4,10 +4,12 @@ const Login = (props) => {
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('')
+    const [reg, setReg] = React.useState({email: "", password: ""});
     const [newEmail, setNewEmail] = React.useState('')
     const [newPassword, setNewPassword] = React.useState('')
     const [error, setError] = React.useState(false);
     const [regError, setRegError] = React.useState(false);
+
 
     const login = () => {
         props.users.map((user) => {
@@ -70,8 +72,8 @@ const Login = (props) => {
         <div>
             <h1 style={{textAlign: "center", color: "white"}}>Register</h1>
             <form className="form">
-                <input type="text" className="inpFrm" value={newEmail} placeholder="Name" onChange={(e) => setNewEmail(e.target.value)} />
-                <input type="password" className="inpFrm" value={newPassword} placeholder="Password" onChange={(e) => setNewPassword(e.target.value)} />
+                <input type="text" className="inpFrm" value={} placeholder="Name" onChange={(e) => setNewEmail(e.target.value)} />
+                <input type="password" className="inpFrm" value={password} placeholder="Password" onChange={(e) => setNewPassword(e.target.value)} />
                     <button type="button" className="btnFrm" onClick={register}>Register</button>
                 {regError ?
                     <div style={{color: "red", fontSize: "bold"}}>ТАКОЕ ИМЯ УЖЕ ЕСТЬ</div>
