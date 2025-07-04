@@ -65,7 +65,6 @@ const Login = (props) => {
 
             props.setMail(reg.email);
             props.setLoginId(data.id);
-            props.setCountUsers(props.countUsers + 1);
             setReg({email: "", password: ""});
             props.setIsAuth(true);
             setRegError(false);

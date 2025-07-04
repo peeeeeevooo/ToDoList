@@ -5,14 +5,26 @@ import EditItem from "./EditItem";
 const Item = (props) => {
     const [edit, setEdit] = useState(false);
 
-    const toggleCompleted = () => {
-        const updatedList = props.list.map(item =>
-            item.id === props.item.id
-                ? {...item, completed: !item.completed}
-                : item
-        );
-        props.setList(updatedList);
-        console.log(updatedList);
+    const toggleCompleted = async () => {
+        try {
+            const response = await fetch('api/post', {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({id: props.item.id, text: props.item.text, completed: !props.item.completed}),
+            })
+
+            if (!response.ok) {
+                throw new Error('Ошибка при обновлении');
+            }
+            const updatedItem = await response.json();
+            const data = updatedItem.rows[0];
+
+            props.setList(props.list.map(item =>
+                item.id === data.id ? data : item
+            ));
+        }catch(err) {
+            console.error(err);
+        }
     }
 
 
