@@ -14,14 +14,12 @@ const List = ({setIsAuth, loginId ,setLoginId, mail}) => {
         user_id: null
     });
 
-
     useEffect(() => {
         const list_sorted = async () => {
             try {
                 let url = `api/post/${loginId}`;
                 if (sort === "completed") url = `api/post/true/${loginId}`;
                 if (sort === "not-completed") url = `api/post/false/${loginId}`;
-
                 const response = await fetch(url);
                 const data = await response.json();
                 setList(data.rows);
@@ -30,8 +28,7 @@ const List = ({setIsAuth, loginId ,setLoginId, mail}) => {
             }
         }
         list_sorted();
-    }, [sort, loginId, trigger]);
-
+    }, [sort,loginId, trigger]);
 
     const appendToDoList = async () => {
         try{

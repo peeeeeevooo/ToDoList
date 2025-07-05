@@ -22,19 +22,19 @@ class PostController{
 
     async getAll(req,res){
         const logId = req.params.id
-        const posts = await pool.query(`SELECT * FROM post WHERE user_id = $1`,[logId]);
+        const posts = await pool.query(`SELECT * FROM post WHERE user_id = $1 ORDER BY id ASC`,[logId]);
         res.json(posts);
     }
 
     async getCompleted(req, res){
         const logId = req.params.id
-        const posts = await pool.query(`SELECT * FROM post WHERE completed = TRUE and user_id = $1`,[logId]);
+        const posts = await pool.query(`SELECT * FROM post WHERE completed = TRUE and user_id = $1 ORDER BY id ASC`,[logId]);
         res.json(posts);
     }
 
     async getNotCompleted(req, res){
         const logId = req.params.id
-        const posts = await pool.query(`SELECT * FROM post WHERE completed = FALSE and user_id = $1`,[logId]);
+        const posts = await pool.query(`SELECT * FROM post WHERE completed = FALSE and user_id = $1 ORDER BY id ASC`,[logId]);
         res.json(posts);
     }
 }

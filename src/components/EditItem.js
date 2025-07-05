@@ -18,14 +18,7 @@ const EditItem = (props) => {
                 throw new Error('Ошибка при обновлении');
             }
 
-            setNewItem({id: null, text: '', completed: false});
-            const updatedList = props.list.map((el) =>
-                el.id === props.item.id
-                    ? { ...el, text: newItem.text}
-                    : el
-            );
-            props.setList(updatedList);
-            props.setEdit(false);
+            props.setTrigger(props.trigger+1)
         } catch(err) {
             console.log(err);
         }

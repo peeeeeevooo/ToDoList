@@ -17,22 +17,7 @@ const Item = (props) => {
                 throw new Error('Ошибка при обновлении');
             }
 
-
-
-            if (props.sort === "all") {
-                const updatedList = props.list.map((el) =>
-                    el.id === props.item.id
-                        ? { ...el, completed: !props.item.completed }
-                        : el
-                );
-                props.setList(updatedList);
-            } else {
-                const filteredList = props.list.filter(el =>
-                    !(el.id === props.item.id)
-                );
-                props.setList(filteredList);
-            }
-
+            props.setTrigger(props.trigger+1)
 
         }catch(err) {
             console.error(err);
