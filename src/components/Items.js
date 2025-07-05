@@ -6,7 +6,7 @@ const Items = (props) => {
     return (
         <div className="List">
         {props.list.map((item,id) => (
-            <Item loginId={props.loginId} key={item.id} list={props.list} setList={props.setList} item={item} id={id} deleteItem={props.deleteItem}/>
+            <Item sort={props.sort} trigger={props.trigger} setTrigger={props.setTrigger} loginId={props.loginId} key={item.id} list={props.list} setList={props.setList} item={item} id={id} deleteItem={props.deleteItem}/>
         ))}
         </div>
     );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Items from "./Items";
 import NewPost from "./NewPost";
 import Header from "./Header";
@@ -6,13 +6,14 @@ import Header from "./Header";
 const List = ({setIsAuth, loginId ,setLoginId, mail}) => {
 
     const [trigger,setTrigger] = useState(0);
-    const [sortList, setSortList] = useState([])
+    const [list, setList] = useState([])
     const [sort, setSort] = useState("all");
     const [value, setValue] = useState({
         text: "",
         completed: false,
         user_id: null
     });
+
 
     useEffect(() => {
         const list_sorted = async () => {
@@ -23,7 +24,7 @@ const List = ({setIsAuth, loginId ,setLoginId, mail}) => {
 
                 const response = await fetch(url);
                 const data = await response.json();
-                setSortList(data.rows);
+                setList(data.rows);
             } catch(err) {
                 console.log(err);
             }
@@ -70,7 +71,7 @@ const List = ({setIsAuth, loginId ,setLoginId, mail}) => {
     return (
         <div>
             <Header mail={mail} setSort={setSort} setIsAuth={setIsAuth} setLoginId={setLoginId}/>
-            <Items loginId={loginId} list={sortList}  deleteItem={deleteItem} setList={setSortList} sort={sort}/>
+            <Items trigger={trigger} setTrigger={setTrigger} loginId={loginId} list={list}  deleteItem={deleteItem} setList={setList} sort={sort}/>
             <NewPost loginId={loginId} text={value.text} setValue={setValue} appendToDoList={appendToDoList}/>
         </div>
     );

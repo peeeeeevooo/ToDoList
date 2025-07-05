@@ -16,12 +16,24 @@ const Item = (props) => {
             if (!response.ok) {
                 throw new Error('Ошибка при обновлении');
             }
-            const updatedItem = await response.json();
-            const data = updatedItem.rows[0];
 
-            props.setList(props.list.map(item =>
-                item.id === data.id ? data : item
-            ));
+
+
+            if (props.sort === "all") {
+                const updatedList = props.list.map((el) =>
+                    el.id === props.item.id
+                        ? { ...el, completed: !props.item.completed }
+                        : el
+                );
+                props.setList(updatedList);
+            } else {
+                const filteredList = props.list.filter(el =>
+                    !(el.id === props.item.id)
+                );
+                props.setList(filteredList);
+            }
+
+
         }catch(err) {
             console.error(err);
         }
@@ -30,7 +42,7 @@ const Item = (props) => {
 
     return (
         <div className="Element" key={props.item.id}>
-            {edit ? <EditItem loginId={props.loginId} item={props.item} setEdit={setEdit} list={props.list} setList={props.setList} />
+            {edit ? <EditItem setTrigger={props.setTrigger} trigger={props.trigger} loginId={props.loginId} item={props.item} setEdit={setEdit} list={props.list} setList={props.setList} />
              :
                 <span>{props.id+1}. {props.item.text}</span>
             }

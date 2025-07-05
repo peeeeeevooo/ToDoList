@@ -8,10 +8,11 @@ const App = () => {
     const [loginId, setLoginId] = useState(null);
     const [mail, setMail] = useState(null);
 
+
     return(
     <div>
             {isAuth ?
-                <List mail={mail} setIsAuth={setIsAuth} loginId={loginId} setLoginId={setLoginId}/>
+                <List  mail={mail} setIsAuth={setIsAuth} loginId={loginId} setLoginId={setLoginId}/>
                 :
                 <Login setMail={setMail} setLoginId={setLoginId} setIsAuth={setIsAuth}/>
             }

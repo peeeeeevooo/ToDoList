@@ -4,26 +4,43 @@ import {IoCloseCircleSharp} from "react-icons/io5";
 
 const EditItem = (props) => {
 
-    const [newItem, setNewItem] = useState({user_id:props.loginId, id: null, text: '',completed: false});
+    const [newItem, setNewItem] = useState({id: null, text: '',completed: false});
 
-    let list =  props.list;
+    const editItem = async () => {
+        try {
+            const response = await fetch('api/post', {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(newItem),
+            });
 
-    const editItem = () => {
-        let ind = props.list.indexOf(props.item);
-        let arr = [...list];
-        arr[ind] = newItem
-        props.setList(arr);
-        setNewItem({user_id:null,id: null, text: '',completed: false});
-        props.setEdit(false);
-    }
+            if (!response.ok) {
+                throw new Error('Ошибка при обновлении');
+            }
+
+            setNewItem({id: null, text: '', completed: false});
+            const updatedList = props.list.map((el) =>
+                el.id === props.item.id
+                    ? { ...el, text: newItem.text}
+                    : el
+            );
+            props.setList(updatedList);
+            props.setEdit(false);
+        } catch(err) {
+            console.log(err);
+        }
+    };
 
     return (
         <span>
-                <input className='edit' value={newItem.text} onChange={(e) => {setNewItem({user_id: props.loginId,id:props.item.id, text: e.target.value, completed: props.item.completed})}} />
-                <IoIosAdd onClick={editItem}/>
+                <input className='edit' value={newItem.text} onChange={(e) => {setNewItem({id: props.item.id, text: e.target.value, completed: props.item.completed})}} />
+                <IoIosAdd onClick={() => {
+                    editItem()
+                    props.setEdit(false);
+                }}/>
                 <IoCloseCircleSharp onClick={() => {
                     props.setEdit(false)
-                    setNewItem({user_id:null, id: null, text: '', completed: false});
+                    setNewItem({id:null, text: '', completed: false,});
                 }}/>
         </span>
     );
