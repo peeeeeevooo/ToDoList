@@ -12,3 +12,11 @@ create TABLE post
     user_id   INTEGER,
     FOREIGN KEY (user_id) REFERENCES person (id)
 );
+
+create TABLE session
+(
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255),
+    user_id INTEGER,
+    FOREIGN KEY (user_id) REFERENCES person (id)
+);

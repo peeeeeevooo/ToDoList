@@ -15,6 +15,20 @@ const Login = (props) => {
             }
             const data = await response.json();
             if(data.rows &&  data.rows.length > 0) {
+                try{
+                    const session = await fetch('api/session',{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({email: data.rows[0].email, user_id: data.rows[0].id}),
+                    })
+                    if (!session.ok) {
+                        throw new Error('Не удалось создать сессию');
+                    }
+                }catch(e){
+                    console.error(e);
+                }
                 props.setLoginId(data.rows[0].id);
                 props.setMail(log.email);
                 props.setIsAuth(true);
@@ -63,8 +77,23 @@ const Login = (props) => {
                 throw new Error(data.message || 'Registration failed');
             }
 
+            try{
+                const session = await fetch('api/session',{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({email: data.rows[0].email, user_id: data.rows[0].id}),
+                })
+                if (!session.ok) {
+                    throw new Error('Не удалось создать сессию');
+                }
+            }catch(e){
+                console.error(e);
+            }
+
             props.setMail(reg.email);
-            props.setLoginId(data.id);
+            props.setLoginId(data.rows[0].id);
             setReg({email: "", password: ""});
             props.setIsAuth(true);
             setRegError(false);

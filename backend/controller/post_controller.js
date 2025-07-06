@@ -14,6 +14,7 @@ class PostController{
         const post = await pool.query(`UPDATE post set text = $1, completed = $2 WHERE id = $3 RETURNING *`, [text,completed,id]);
         res.json(post);
     }
+
     async delete(req, res){
         const id = req.params.id;
         const posts = await pool.query(`DELETE FROM post WHERE id = $1`, [id]);

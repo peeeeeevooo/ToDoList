@@ -44,8 +44,8 @@ const List = ({setIsAuth, loginId ,setLoginId, mail}) => {
             if (!response.ok) {
                 throw new Error(data.message || 'Site failed');
             }
+            setList([...list, data.rows[0]]);
             setValue({text:"", completed: false,user_id: null})
-            setTrigger(trigger+1)
         }catch(err){
             console.error(err)
         }
@@ -59,7 +59,7 @@ const List = ({setIsAuth, loginId ,setLoginId, mail}) => {
             if (!response.ok) {
                 throw new Error('Не удалось удалить запись');
             }
-            setTrigger(trigger+1)
+            setList(prev => prev.filter(post => post.id !== id));
         }catch(err){
             console.log(err)
         }

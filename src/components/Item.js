@@ -17,6 +17,8 @@ const Item = (props) => {
                 throw new Error('Ошибка при обновлении');
             }
 
+            props.setList(prev => prev.map(p => p.id === props.item.id ? { ...p, completed: !props.item.completed } : p));
+
             props.setTrigger(props.trigger+1)
 
         }catch(err) {
